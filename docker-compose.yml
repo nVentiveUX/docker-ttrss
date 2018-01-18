@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+
+  database:
+    image: postgres:10.1
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ttrss
+      POSTGRES_PASSWORD: ttrss
+
+  ttrss:
+    build:
+      context: .
+    volumes:
+      - ttrss_cache:/srv/ttrss/cache
+      - ttrss_feed_icons:/srv/ttrss/feed-icons
+    ports:
+      - 8000:443
+
+volumes:
+
+  pg_data:
+  ttrss_cache:
+  ttrss_feed_icons:
