@@ -81,6 +81,7 @@ VOLUME /srv/ttrss/cache /srv/ttrss/feed-icons
 # Setup init
 ADD supervisord.conf /supervisord.conf
 ADD entrypoint.sh /entrypoint.sh
+ADD configure-db.php /configure-db.php
 ADD ttrss-update-daemon.sh /usr/local/sbin/ttrss-update-daemon.sh
 RUN set -x && chmod +x /usr/local/sbin/ttrss-update-daemon.sh
 

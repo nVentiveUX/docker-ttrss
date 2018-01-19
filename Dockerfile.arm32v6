@@ -2,21 +2,30 @@ FROM arm32v6/alpine:3.7
 
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 
-# Needed to build the image on ARM through Travis CI
-RUN set -xe \
-  && ( cd /tmp
-  && curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.6.0/qemu-arm-static.tar.gz \
-  && tar -xzf qemu-arm-static.tar.gz \
-  && mv qemu-arm-static /usr/bin/qemu-arm-static \
-  && rm qemu-arm-static.tar.gz )
-
 # TTRSS upstream commit reference
 ARG TTRSS_COMMIT="master"
+
+# Database connection
+ENV TTRSS_DB_ADAPTER="pgsql"
+ENV TTRSS_DB_HOST="database"
+ENV TTRSS_DB_NAME="ttrss"
+ENV TTRSS_DB_USER="ttrss"
+ENV TTRSS_DB_PASSWORD="ttrss"
+ENV TTRSS_DB_PORT="5432"
 
 # SSL self-signed certificate
 ENV TTRSS_SELF_CERT_CN="localhost"
 ENV TTRSS_SELF_CERT_ORG="Grenouille Inc."
 ENV TTRSS_SELF_CERT_COUNTRY="FR"
+
+# Customize tt-rss configuration
+ENV TTRSS_CONF_SELF_URL_PATH="https://localhost:8000/"
+ENV TTRSS_CONF_REG_NOTIFY_ADDRESS="me@mydomain.com"
+ENV TTRSS_CONF_SMTP_FROM_NAME="TT-RSS Feeds"
+ENV TTRSS_CONF_SMTP_FROM_ADDRESS="noreply@mydomain.com"
+ENV TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours"
+ENV TTRSS_CONF_SMTP_SERVER=""
+ENV TTRSS_CONF_PLUGINS="auth_internal,note,import_export"
 
 # Install directories
 RUN mkdir -p /srv/ttrss /etc/nginx/ssl
@@ -49,6 +58,9 @@ RUN set -x \
             https://git.tt-rss.org/git/tt-rss/archive/${TTRSS_COMMIT}.tar.gz \
             | tar xzC /srv/ttrss --strip-components 1
 
+# Install TT-RSS configuration
+ADD ttrss/config.php /srv/ttrss/config.php
+
 # Fix permissions
 RUN chown nginx:nginx -R /srv/ttrss
 
@@ -69,6 +81,7 @@ VOLUME /srv/ttrss/cache /srv/ttrss/feed-icons
 # Setup init
 ADD supervisord.conf /supervisord.conf
 ADD entrypoint.sh /entrypoint.sh
+ADD configure-db.php /configure-db.php
 ADD ttrss-update-daemon.sh /usr/local/sbin/ttrss-update-daemon.sh
 RUN set -x && chmod +x /usr/local/sbin/ttrss-update-daemon.sh
 

@@ -3,6 +3,9 @@ set -e
 
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 
+# Configure TT-RSS database
+php /configure-db.php || exit 1
+
 # Generate SSL self-signed certs
 if [ ! -e "/etc/nginx/ssl/ttrss.crt" ]
 then
