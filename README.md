@@ -1,5 +1,7 @@
 # Tiny Tiny RSS docker image
 
+[![Build Status](https://travis-ci.org/nVentiveUX/docker-ttrss.svg?branch=master)](https://travis-ci.org/nVentiveUX/docker-ttrss)
+
 Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container supporting x86_64 / RaspberryPi (ARM32v6) architectures.
 
 ## Available tags
