@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+- docker
+
+language: bash
+
+script:
+  - docker build -t nventiveux/ttrss:latest -f Dockerfile .
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build -t nventiveux/ttrss:latest-arm32v6 -f Dockerfile.arm32v6 .
+  - docker images
+
+branches:
+  only:
+    - master
