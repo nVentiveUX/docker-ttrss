@@ -17,7 +17,7 @@
 
       return $pdo;
     } catch (Exception $e) {
-      print($e->getMessage());
+      print($e->getMessage() . "\n");
       return null;
     }
   }
@@ -25,20 +25,20 @@
   $pdo = pdo_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_TYPE, $DB_PORT);
 
   if (!$pdo) {
-    print("Unable to connect to database using specified parameters.");
+    print("Unable to connect to database using specified parameters.\n");
     exit(2);
   }
 
-  print("Database connection succeeded.");
+  print("Database connection succeeded.\n");
 
   $res = $pdo->query("SELECT true FROM ttrss_feeds");
 
   if ($res && $res->fetch()) {
-    print("Some tt-rss data already exists in this database. Skipping initialization.");
+    print("Some tt-rss data already exists in this database. Skipping initialization.\n");
     exit(0);
   }
 
-  print("Initializing a new database...");
+  print("Initializing a new database...\n");
 
   $lines = explode(";", preg_replace("/[\r\n]/", "",
               file_get_contents("../schema/ttrss_schema_".basename($DB_TYPE).".sql")));
@@ -48,13 +48,13 @@
       $res = $pdo->query($line);
 
       if (!$res) {
-        print("Query: $line");
-        print("Error: " . implode(", ", $this->pdo->errorInfo()));
+        print("Query: $line\n");
+        print("Error: " . implode(", ", $this->pdo->errorInfo()) . "\n");
         exit(1);
       }
     }
   }
 
-  print("Database initialization completed.");
+  print("Database initialization completed.\n");
   exit(0);
 ?>
