@@ -27,6 +27,11 @@ ENV TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours"
 ENV TTRSS_CONF_SMTP_SERVER=""
 ENV TTRSS_CONF_PLUGINS="auth_internal,note,import_export"
 
+# Install static QEMU for ARM build from Travis CI
+RUN set -xe -o pipefail \
+      && cd /usr/bin \
+      && curl -SL https://github.com/multiarch/qemu-user-static/releases/download/v2.6.0/qemu-arm-static.tar.gz | tar zxvf -
+
 # Install directories
 RUN mkdir -p /srv/ttrss /etc/nginx/ssl
 
