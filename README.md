@@ -41,7 +41,7 @@ $ docker run \
     arm32v6/postgres:10.1-alpine
 ```
 
-Run **ttrss** instance, replace `<HOST_IP>` by the IP address of your host:
+Run **ttrss** instance:
 
 ```shell
 # x86_64
