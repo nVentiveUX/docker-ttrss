@@ -22,7 +22,7 @@
     }
   }
 
-  $pdo = pdo_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_TYPE, $DB_PORT);
+  $pdo = pdo_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_TYPE, DB_PORT);
 
   if (!$pdo) {
     print("Unable to connect to database using specified parameters.\n");
@@ -40,8 +40,13 @@
 
   print("Initializing a new database...\n");
 
-  $lines = explode(";", preg_replace("/[\r\n]/", "",
-              file_get_contents("../schema/ttrss_schema_".basename($DB_TYPE).".sql")));
+  try {
+    $lines = explode(";", preg_replace("/[\r\n]/", "",
+                  file_get_contents("/srv/ttrss/schema/ttrss_schema_".basename(DB_TYPE).".sql")));
+  } catch (Exception $e) {
+    print($e->getMessage() . "\n");
+    exit(1);
+  }
 
   foreach ($lines as $line) {
     if (strpos($line, "--") !== 0 && $line) {
