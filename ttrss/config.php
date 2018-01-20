@@ -3,12 +3,12 @@
 	// *** Database configuration (important!) ***
 	// *******************************************
 
-	define('DB_TYPE', $_ENV["TTRSS_DB_ADAPTER"]); // pgsql or mysql
-	define('DB_HOST', $_ENV["TTRSS_DB_HOST"]);
-	define('DB_USER', $_ENV["TTRSS_DB_USER"]);
-	define('DB_NAME', $_ENV["TTRSS_DB_NAME"]);
-	define('DB_PASS', $_ENV["TTRSS_DB_PASSWORD"]);
-	define('DB_PORT', $_ENV["TTRSS_DB_PORT"]); // usually 5432 for PostgreSQL, 3306 for MySQL
+	define('DB_TYPE', getenv("TTRSS_DB_ADAPTER")); // pgsql or mysql
+	define('DB_HOST', getenv("TTRSS_DB_HOST"));
+	define('DB_USER', getenv("TTRSS_DB_USER"));
+	define('DB_NAME', getenv("TTRSS_DB_NAME"));
+	define('DB_PASS', getenv("TTRSS_DB_PASSWORD"));
+	define('DB_PORT', getenv("TTRSS_DB_PORT")); // usually 5432 for PostgreSQL, 3306 for MySQL
 
 	define('MYSQL_CHARSET', 'UTF8');
 	// Connection charset for MySQL. If you have a legacy database and/or experience
@@ -18,7 +18,7 @@
 	// *** Basic settings (important!) ***
 	// ***********************************
 
-	define('SELF_URL_PATH', $_ENV["TTRSS_CONF_SELF_URL_PATH"]);
+	define('SELF_URL_PATH', getenv("TTRSS_CONF_SELF_URL_PATH"));
 	// Full URL of your tt-rss installation. This should be set to the
 	// location of tt-rss directory, e.g. http://example.org/tt-rss/
 	// You need to set this option correctly otherwise several features
@@ -121,7 +121,7 @@
 	// and potentially might lead to data loss or server exploit. Disabled
 	// by default.
 
-	define('REG_NOTIFY_ADDRESS', $_ENV["TTRSS_CONF_REG_NOTIFY_ADDRESS"]);
+	define('REG_NOTIFY_ADDRESS', getenv("TTRSS_CONF_REG_NOTIFY_ADDRESS"));
 	// Email address to send new user notifications to.
 
 	define('REG_MAX_USERS', 0);
@@ -140,15 +140,15 @@
 	// *** Email and digest settings ***
 	// *********************************
 
-	define('SMTP_FROM_NAME', $_ENV["TTRSS_CONF_SMTP_FROM_NAME"]);
-	define('SMTP_FROM_ADDRESS', $_ENV["TTRSS_CONF_SMTP_FROM_ADDRESS"]);
+	define('SMTP_FROM_NAME', getenv("TTRSS_CONF_SMTP_FROM_NAME"));
+	define('SMTP_FROM_ADDRESS', getenv("TTRSS_CONF_SMTP_FROM_ADDRESS"));
 	// Name, address and subject for sending outgoing mail. This applies
 	// to password reset notifications, digest emails and any other mail.
 
-	define('DIGEST_SUBJECT', $_ENV["TTRSS_CONF_DIGEST_SUBJECT"]);
+	define('DIGEST_SUBJECT', getenv("TTRSS_CONF_DIGEST_SUBJECT"));
 	// Subject line for email digests
 
-	define('SMTP_SERVER', $_ENV["TTRSS_CONF_SMTP_SERVER"]);
+	define('SMTP_SERVER', getenv("TTRSS_CONF_SMTP_SERVER"));
 	// Hostname:port combination to send outgoing mail (i.e. localhost:25).
 	// Blank - use system MTA.
 
@@ -175,7 +175,7 @@
 	// if you experience weird errors and tt-rss failing to start, blank pages
 	// after login, or content encoding errors, disable it.
 
-	define('PLUGINS', $_ENV["TTRSS_CONF_PLUGINS"]);
+	define('PLUGINS', getenv("TTRSS_CONF_PLUGINS"));
 	// Comma-separated list of plugins to load automatically for all users.
 	// System plugins have to be specified here. Please enable at least one
 	// authentication plugin here (auth_*).
