@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-DOCKERFILES=Dockerfile Dockerfile.arm32v6
+DOCKERFILES=Dockerfile.amd64 Dockerfile.arm32v6
 TEMPLATE=Dockerfile.template
 
 .PHONY: \
@@ -37,10 +37,10 @@ endif
 
 # Files
 #
-Dockerfile:
+Dockerfile.amd64:
 	sed -r \
 	  -e "s!%%DF_FROM%%!alpine:3.7!g" \
-		$(TEMPLATE) > Dockerfile
+		$(TEMPLATE) > Dockerfile.amd64
 
 Dockerfile.arm32v6:
 	sed -r \

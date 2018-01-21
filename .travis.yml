@@ -1,24 +1,27 @@
 sudo: required
 
-env:
-  global:
-    secure: "NnZx/pkEm+nqP6LCS/9bmQt9CPyk7djmdKUBJ23/Ap9aakSOv/L1djxTAzMTBTO7rtBE84lA/XEEJqc/CRkpf1Aqbd49vTcPGlTBXbPzpBihaqlJh+d8EBj4FBfDEdZ2K/p+JC385o3uKSRdm6jmwL+sLYRk25NIwVuTSR8LXKb+Xl3hbHv9QVvn+RoCPsBNN4cOKa+ZLGqpHFYqiq2wcGX+axb2JMhknWTdE56OH8dpOKoUcEbc+5WUvR83Ra4FcYiOLfhjUozYA1zB4S5J666GzqbucthCz8GLkDp/l7rz22djYM8cFLV7srtwsDB5ZAhNW3eHu+6Zx9UbIF5SX9rasmAdeUq6vCFkGRcCeVsId08+aft7JdtYbdQ2FbHQb0wbxubY5DcX8vlQVnQaaFd5gjz6WH2hXFP5uqEGlP0tMYRCRunQcOiJoFChymGtB3S6mXfM27GfgnrcRsU7m/OBMk3niwDXzZMOjgzaC2VFYtiJJLV33XPW1E45oZmX0t9BMSwkjP0FoHLGALBG7Do25IAwHWmilLvvTeVeIg/YoMXtnr4O3weCK2ngNkCm/VIbW43a4tLqKmXcz6dVWIdpYWYY+OPDpL7OqDwkZKPn69AWZS5cjdNs/SrnrAUsRxXG+ZJ5N3rz3DyYzQTjKShLUsdYmXDIYBWJbLKuBtU="
-
 services:
 - docker
 
 language: bash
 
+env:
+  global:
+    secure: "NnZx/pkEm+nqP6LCS/9bmQt9CPyk7djmdKUBJ23/Ap9aakSOv/L1djxTAzMTBTO7rtBE84lA/XEEJqc/CRkpf1Aqbd49vTcPGlTBXbPzpBihaqlJh+d8EBj4FBfDEdZ2K/p+JC385o3uKSRdm6jmwL+sLYRk25NIwVuTSR8LXKb+Xl3hbHv9QVvn+RoCPsBNN4cOKa+ZLGqpHFYqiq2wcGX+axb2JMhknWTdE56OH8dpOKoUcEbc+5WUvR83Ra4FcYiOLfhjUozYA1zB4S5J666GzqbucthCz8GLkDp/l7rz22djYM8cFLV7srtwsDB5ZAhNW3eHu+6Zx9UbIF5SX9rasmAdeUq6vCFkGRcCeVsId08+aft7JdtYbdQ2FbHQb0wbxubY5DcX8vlQVnQaaFd5gjz6WH2hXFP5uqEGlP0tMYRCRunQcOiJoFChymGtB3S6mXfM27GfgnrcRsU7m/OBMk3niwDXzZMOjgzaC2VFYtiJJLV33XPW1E45oZmX0t9BMSwkjP0FoHLGALBG7Do25IAwHWmilLvvTeVeIg/YoMXtnr4O3weCK2ngNkCm/VIbW43a4tLqKmXcz6dVWIdpYWYY+OPDpL7OqDwkZKPn69AWZS5cjdNs/SrnrAUsRxXG+ZJ5N3rz3DyYzQTjKShLUsdYmXDIYBWJbLKuBtU="
+  matrix:
+    - ARCH="amd64" TAG="latest"
+    - ARCH="arm32v6" TAG="latest-arm32v6"
+
 script:
-  - docker build -t nventiveux/ttrss:latest -f Dockerfile .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/qemu-arm-static.tar.gz
   - tar zxvf qemu-arm-static.tar.gz
-  - docker build -t nventiveux/ttrss:latest-arm32v6 -f Dockerfile.arm32v6 .
+  - docker build -t nventiveux/ttrss:${TAG} -f Dockerfile.${ARCH} .
   - docker images
+
+after_success:
   - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
-  - docker push nventiveux/ttrss:latest
-  - docker push nventiveux/ttrss:latest-arm32v6
+  - docker push nventiveux/ttrss:${TAG}
 
 branches:
   only:

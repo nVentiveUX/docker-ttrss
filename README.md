@@ -6,7 +6,7 @@ Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container support
 
 ## Available tags
 
-* *latest* ([Dockerfile](Dockerfile))
+* *latest* ([Dockerfile](Dockerfile.amd64))
 * *latest-arm32v6* ([Dockerfile.arm32v6](Dockerfile.arm32v6))
 
 ## Usage
