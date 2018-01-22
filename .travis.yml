@@ -16,13 +16,9 @@ script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/qemu-arm-static.tar.gz
   - tar zxvf qemu-arm-static.tar.gz
-  - docker build -t nventiveux/${IMAGE}:${TAG} -f Dockerfile.${ARCH} .
+  - docker build -t nventiveux/${IMAGE}:${TAG} -t nventiveux/${IMAGE}:${TRAVIS_BRANCH} -f Dockerfile.${ARCH} .
   - docker images
 
 after_success:
   - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
-  - docker push nventiveux/${IMAGE}:${TAG}
-
-branches:
-  only:
-    - master
+  - docker push nventiveux
