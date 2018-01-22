@@ -12,14 +12,20 @@
     $db_port = $port ? ';port=' . $port : '';
     $db_host = $host ? ';host=' . $host : '';
 
-    try {
-      $pdo = new PDO($type . ':dbname=' . $db . $db_host . $db_port, $user, $pass);
-
-      return $pdo;
-    } catch (Exception $e) {
-      print($e->getMessage() . "\n");
-      return null;
+    $retries = 60;
+    while ($retries > 0)
+    {
+      try {
+        $pdo = new PDO($type . ':dbname=' . $db . $db_host . $db_port, $user, $pass);
+        return $pdo;
+      } catch (PDOException $e) {
+        echo "Database not yet ready, retrying...";
+        $retries--;
+        usleep(1000); // Wait 1s between retries.
+      }
     }
+
+    return null;
   }
 
   $pdo = pdo_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_TYPE, DB_PORT);
