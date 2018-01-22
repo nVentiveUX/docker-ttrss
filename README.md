@@ -4,10 +4,13 @@
 
 Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container supporting x86_64 / RaspberryPi (ARM32v6) architectures.
 
-## Available tags
+## Available images and tags
 
-* *latest* ([Dockerfile](Dockerfile.amd64))
-* *latest-arm32v6* ([Dockerfile.arm32v6](Dockerfile.arm32v6))
+* **nventiveux/ttrss**
+  * *latest* ([Dockerfile.amd64](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.amd64))
+
+* **nventiveux/ttrss-arm32v6** (Raspberry Pi 2 / 3)
+  * *latest* ([Dockerfile.arm32v6](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.arm32v6))
 
 ## Usage
 
@@ -60,7 +63,7 @@ $ docker run \
     -e TTRSS_DB_HOST="ttrss_database" \
     -p 8000:443 \
     --network ttrss_net \
-    nventiveux/ttrss:latest-arm32v6
+    nventiveux/ttrss-arm32v6:latest
 ```
 
 Open browser to https://localhost:8000/. Login as **admin** with password **password**.
