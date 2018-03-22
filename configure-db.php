@@ -19,9 +19,9 @@
         $pdo = new PDO($type . ':dbname=' . $db . $db_host . $db_port, $user, $pass);
         return $pdo;
       } catch (PDOException $e) {
-        echo "Database not yet ready, retrying...";
+        echo "Database not yet ready, retrying... [" . $retries . "]\n";
         $retries--;
-        usleep(1000); // Wait 1s between retries.
+        usleep(1000000); // Wait 1s between retries.
       }
     }
 
