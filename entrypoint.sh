@@ -5,7 +5,7 @@ PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 
 # Configure TT-RSS database and schema migrations
 php /configure-db.php || exit 1
-su nginx -s /bin/sh -c "php update.php --update-schema" || exit 1
+su nginx -s /bin/sh -c "php /srv/ttrss/update.php --update-schema" || exit 1
 
 # Generate SSL self-signed certs
 if [ ! -e "/etc/nginx/ssl/ttrss.crt" ]
