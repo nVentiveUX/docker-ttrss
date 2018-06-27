@@ -28,6 +28,9 @@ ENV TTRSS_CONF_SMTP_FROM_NAME="TT-RSS Feeds"
 ENV TTRSS_CONF_SMTP_FROM_ADDRESS="noreply@mydomain.com"
 ENV TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours"
 ENV TTRSS_CONF_SMTP_SERVER=""
+ENV TTRSS_CONF_SMTP_LOGIN=""
+ENV TTRSS_CONF_SMTP_PASSWORD=""
+ENV TTRSS_CONF_SMTP_SECURE=""
 ENV TTRSS_CONF_PLUGINS="auth_internal,note,import_export"
 
 # Install directories
