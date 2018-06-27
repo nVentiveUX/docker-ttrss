@@ -152,12 +152,12 @@
 	// Hostname:port combination to send outgoing mail (i.e. localhost:25).
 	// Blank - use system MTA.
 
-	define('SMTP_LOGIN', '');
-	define('SMTP_PASSWORD', '');
+	define('SMTP_LOGIN', getenv("TTRSS_CONF_SMTP_LOGIN"));
+	define('SMTP_PASSWORD', getenv("TTRSS_CONF_SMTP_PASSWORD"));
 	// These two options enable SMTP authentication when sending
 	// outgoing mail. Only used with SMTP_SERVER.
 
-	define('SMTP_SECURE', '');
+	define('SMTP_SECURE', getenv("TTRSS_CONF_SMTP_SECURE"));
 	// Used to select a secure SMTP connection. Allowed values: ssl, tls,
 	// or empty.
 
