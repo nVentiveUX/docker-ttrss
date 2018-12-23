@@ -1,7 +1,10 @@
 sudo: required
 
 services:
-- docker
+  - docker
+
+python:
+  - "3.7"
 
 language: bash
 
@@ -12,10 +15,15 @@ env:
     - ARCH="amd64" IMAGE="ttrss"
     - ARCH="arm32v6" IMAGE="ttrss-arm32v6"
 
+install:
+  - pip install pipenv==2018.11.26
+
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/qemu-arm-static.tar.gz
   - tar zxvf qemu-arm-static.tar.gz
+  - make install
+  - make dockerfiles
   - if [ "${TRAVIS_BRANCH}" == "master" ]; then
     docker build -t nventiveux/${IMAGE}:latest -f Dockerfile.${ARCH} .;
     else
