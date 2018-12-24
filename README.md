@@ -91,16 +91,27 @@ Open browser to https://localhost:8000/. Login as **admin** with password **pass
 
 ## Tests and development
 
-Tweak `Dockerfile.template` to your convenience, then:
+Requirements:
+
+* [Python >=3.7](https://www.python.org/)
+* [Pipenv](https://pypi.org/project/pipenv/)
+
+Install dependencies:
 
 ```shell
-$ make all
+make install
+```
+
+Tweak `Dockerfile.j2` to your convenience, then:
+
+```shell
+make
 ```
 
 Bring it up using:
 
 ```shell
-$ docker-compose up --build
+docker-compose up --build
 ```
 
 Open browser to https://localhost:8000/. Login as **admin** with password **password**.
