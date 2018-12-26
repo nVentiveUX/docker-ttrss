@@ -90,3 +90,4 @@ ADD ttrss-update-daemon.sh /usr/local/sbin/ttrss-update-daemon.sh
 RUN set -x && chmod +x /usr/local/sbin/ttrss-update-daemon.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+

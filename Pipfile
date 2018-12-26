@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-j2cli = "*"
+j2cli = ">=0.3.3"
 
 [requires]
 python_version = "3.7"
