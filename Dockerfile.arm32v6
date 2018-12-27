@@ -6,7 +6,7 @@ LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 # TTRSS upstream commit reference
-ARG TTRSS_COMMIT="eedd402807aef9a26b47acb4126453c32ff46163"
+ARG TTRSS_COMMIT="734af3357d37b1424935f8589f144b04f9c61323"
 
 # Database connection
 ENV TTRSS_DB_ADAPTER="pgsql"
