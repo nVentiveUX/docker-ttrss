@@ -80,7 +80,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 ADD php7/php-fpm.d/www.conf /etc/php7/php-fpm.d/www.conf
 
 # Listening ports
-EXPOSE 443
+EXPOSE 80
 
 # Persist data
 VOLUME /srv/ttrss/cache /srv/ttrss/feed-icons

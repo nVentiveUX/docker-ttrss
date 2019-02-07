@@ -15,12 +15,12 @@ services:
       context: .
       dockerfile: Dockerfile.amd64
     environment:
-      TTRSS_CONF_SELF_URL_PATH: "https://127.0.0.1:8000/"
+      TTRSS_CONF_SELF_URL_PATH: "http://127.0.0.1:8000/"
     volumes:
       - ttrss_cache:/srv/ttrss/cache
       - ttrss_feed_icons:/srv/ttrss/feed-icons
     ports:
-      - 8000:443
+      - 8000:80
 
 volumes:
 
