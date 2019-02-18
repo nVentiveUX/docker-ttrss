@@ -94,7 +94,7 @@
 	// *** Feed settings ***
 	// *********************
 
-	define('FORCE_ARTICLE_PURGE', 90);
+	define('FORCE_ARTICLE_PURGE', 0);
 	// When this option is not 0, users ability to control feed purging
 	// intervals is disabled and all articles (which are not starred)
 	// older than this amount of days are purged.
