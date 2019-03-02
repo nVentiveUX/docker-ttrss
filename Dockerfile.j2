@@ -9,24 +9,24 @@ COPY qemu-arm-static /usr/bin/qemu-arm-static
 ARG TTRSS_COMMIT="734af3357d37b1424935f8589f144b04f9c61323"
 
 # Database connection
-ENV TTRSS_DB_ADAPTER="pgsql"
-ENV TTRSS_DB_HOST="database"
-ENV TTRSS_DB_NAME="ttrss"
-ENV TTRSS_DB_USER="ttrss"
-ENV TTRSS_DB_PASSWORD="ttrss"
-ENV TTRSS_DB_PORT="5432"
+ENV TTRSS_DB_ADAPTER="pgsql" \
+    TTRSS_DB_HOST="database" \
+    TTRSS_DB_NAME="ttrss" \
+    TTRSS_DB_USER="ttrss" \
+    TTRSS_DB_PASSWORD="ttrss" \
+    TTRSS_DB_PORT="5432"
 
 # Customize tt-rss configuration
-ENV TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours"
-ENV TTRSS_CONF_PLUGINS="auth_internal,note,import_export"
-ENV TTRSS_CONF_REG_NOTIFY_ADDRESS="me@mydomain.com"
-ENV TTRSS_CONF_SELF_URL_PATH="https://localhost:8000/"
-ENV TTRSS_CONF_SMTP_FROM_ADDRESS="noreply@mydomain.com"
-ENV TTRSS_CONF_SMTP_FROM_NAME="TT-RSS Feeds"
-ENV TTRSS_CONF_SMTP_LOGIN=""
-ENV TTRSS_CONF_SMTP_PASSWORD=""
-ENV TTRSS_CONF_SMTP_PORT=""
-ENV TTRSS_CONF_SMTP_SERVER=""
+ENV TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours" \
+    TTRSS_CONF_PLUGINS="auth_internal,note,import_export" \
+    TTRSS_CONF_REG_NOTIFY_ADDRESS="me@mydomain.com" \
+    TTRSS_CONF_SELF_URL_PATH="https://localhost:8000/" \
+    TTRSS_CONF_SMTP_FROM_ADDRESS="noreply@mydomain.com" \
+    TTRSS_CONF_SMTP_FROM_NAME="TT-RSS Feeds" \
+    TTRSS_CONF_SMTP_LOGIN="" \
+    TTRSS_CONF_SMTP_PASSWORD="" \
+    TTRSS_CONF_SMTP_PORT="" \
+    TTRSS_CONF_SMTP_SERVER=""
 
 # Install directories
 RUN mkdir -p /srv/ttrss /etc/nginx/ssl
