@@ -72,22 +72,22 @@ Open browser to https://localhost:8000/. Login as **admin** with password **pass
 
 | Variables | Description |
 |----|----|
+| `TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours"` | The email notification subject |
+| `TTRSS_CONF_PLUGINS="auth_internal,note,import_export"` | Default list of [PLUGINS](https://git.tt-rss.org/fox/tt-rss/wiki/Plugins) enabled by default. |
+| `TTRSS_CONF_REG_NOTIFY_ADDRESS="me@mydomain.com"` | Email address where should be send notifications about feeds updates |
+| `TTRSS_CONF_SELF_URL_PATH="https://localhost:8000/"` | The URL to access the TT-RSS instance |
+| `TTRSS_CONF_SMTP_FROM_ADDRESS="noreply@mydomain.com"` | Email where to reploy to notifications |
+| `TTRSS_CONF_SMTP_FROM_NAME="TT-RSS Feeds"` | The From: field for email sending |
+| `TTRSS_CONF_SMTP_SERVER=""` | The SMTP server to use for email notifications |
+| `TTRSS_CONF_SMTP_PORT=""` | The port where SMTP server is listening |
+| `TTRSS_CONF_SMTP_LOGIN=""` | The login used to connect on SMTP server |
+| `TTRSS_CONF_SMTP_PASSWORD=""` | The password used to connect on SMTP server  |
 | `TTRSS_DB_ADAPTER="pgsql"` | The database adapter, could be 'pgsql' or 'mysql' |
 | `TTRSS_DB_HOST="database"` | The database host name / ip address |
 | `TTRSS_DB_NAME="ttrss"` | Default database name |
-| `TTRSS_DB_USER="ttrss"` | Default database user name |
 | `TTRSS_DB_PASSWORD="ttrss"` | Default database user password |
 | `TTRSS_DB_PORT="5432"` | Default database port, 5432 for pgsql, 3306 for mysql |
-| `TTRSS_SELF_CERT_CN="localhost"` | Default CN in SSL certificate, use server host name |
-| `TTRSS_SELF_CERT_ORG="Grenouille Inc."` | Set Organization in SSL certificate |
-| `TTRSS_SELF_CERT_COUNTRY="FR"` | Set Country in SSL certificate |
-| `TTRSS_CONF_SELF_URL_PATH="https://localhost:8000/"` | The URL to access the TT-RSS instance |
-| `TTRSS_CONF_REG_NOTIFY_ADDRESS="me@mydomain.com"` | Email address where should be send notifications about feeds updates |
-| `TTRSS_CONF_SMTP_FROM_NAME="TT-RSS Feeds"` | The From: field for email sending |
-| `TTRSS_CONF_SMTP_FROM_ADDRESS="noreply@mydomain.com"` | Email where to reploy to notifications |
-| `TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours"` | The email notification subject |
-| `TTRSS_CONF_SMTP_SERVER=""` | The SMTP server to use for email notifications |
-| `TTRSS_CONF_PLUGINS="auth_internal,note,import_export"` | Default list of [PLUGINS](https://git.tt-rss.org/fox/tt-rss/wiki/Plugins) enabled by default. |
+| `TTRSS_DB_USER="ttrss"` | Default database user name |
 
 ## Tests and development
 
