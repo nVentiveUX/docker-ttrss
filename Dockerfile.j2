@@ -1,4 +1,4 @@
-FROM {{ ARCH + '/' if ARCH != 'amd64' else '' }}alpine:3.9
+FROM {{ ARCH + '/' if ARCH != 'amd64' else '' }}alpine:3.10
 
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 {% if ARCH == 'arm32v6' %}
