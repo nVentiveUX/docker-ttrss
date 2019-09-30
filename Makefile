@@ -4,11 +4,11 @@ ARCH = amd64 arm32v6
 # Tasks
 #
 .PHONY: dockerfiles
-dockerfiles: $(ARCH)
+dockerfiles: install $(ARCH)
 
 .PHONY: install
 install:
-	@pipenv install
+	@pipenv install --dev
 
 # Files
 #
