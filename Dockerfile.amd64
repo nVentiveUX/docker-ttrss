@@ -3,7 +3,7 @@ FROM alpine:3.10
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 
 # TTRSS upstream commit reference
-ARG TTRSS_COMMIT="4e05008aac"
+ARG TTRSS_COMMIT="219840341c"
 
 # Database connection
 ENV TTRSS_DB_ADAPTER="pgsql" \
