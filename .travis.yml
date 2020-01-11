@@ -19,10 +19,8 @@ script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/qemu-arm-static.tar.gz
   - tar zxvf qemu-arm-static.tar.gz
-  - if [ "${TRAVIS_BRANCH}" == "master" ]; then
+  - if [ "${TRAVIS_BRANCH}" = "master" ]; then
     docker build -t nventiveux/${IMAGE}:latest -t nventiveux/${IMAGE}:stable -f Dockerfile.${ARCH} .;
-    else
-    docker build -t nventiveux/${IMAGE}:latest -t nventiveux/${IMAGE}:${TRAVIS_BRANCH} -f Dockerfile.${ARCH} .;
     fi
   - docker images
 
