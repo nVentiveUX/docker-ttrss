@@ -31,7 +31,7 @@ ENV TTRSS_CONF_DIGEST_SUBJECT="[rss] News headlines on last 24 hours" \
 # Install directories
 RUN mkdir -p /srv/ttrss /etc/nginx/ssl
 
-# Dependencies
+# Install packages
 RUN set -x \
       && apk --no-cache add \
         ca-certificates \
@@ -60,8 +60,11 @@ RUN set -x \
         php7-posix      \
         php7-session    \
       && curl -SL \
-            https://git.tt-rss.org/git/tt-rss/archive/${TTRSS_COMMIT}.tar.gz \
-            | tar xzC /srv/ttrss --strip-components 1
+          https://git.tt-rss.org/git/tt-rss/archive/${TTRSS_COMMIT}.tar.gz \
+          | tar xzC /srv/ttrss --strip-components 1 \
+      && curl -SL \
+          https://github.com/levito/tt-rss-feedly-theme/archive/master.tar.gz \
+          | tar xzC /srv/ttrss/themes.local
 
 # Install TT-RSS configuration
 ADD ttrss/config.php /srv/ttrss/config.php
