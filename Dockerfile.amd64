@@ -61,7 +61,9 @@ RUN set -x \
           | tar xzC /srv/ttrss --strip-components 1 \
       && curl -SL \
           https://github.com/levito/tt-rss-feedly-theme/archive/master.tar.gz \
-          | tar xzC /srv/ttrss/themes.local
+          | tar xzC /tmp \
+            && cp -r /tmp/tt-rss-feedly-theme-master/feedly* /srv/ttrss/themes.local \
+            && rm -rf /tmp/tt-rss-feedly-theme-master
 
 # Install TT-RSS configuration
 ADD ttrss/config.php /srv/ttrss/config.php
