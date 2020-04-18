@@ -57,6 +57,8 @@ RUN set -x \
         php7-pcntl      \
         php7-pdo_pgsql  \
         php7-pgsql      \
+        php7-pdo_mysql  \
+        php7-mysql      \
         php7-posix      \
         php7-session    \
       && curl -SL \
