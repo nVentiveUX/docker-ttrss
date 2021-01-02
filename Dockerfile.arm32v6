@@ -1,4 +1,4 @@
-FROM arm32v6/alpine:3.10
+FROM arm32v6/alpine:3.12
 
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 
