@@ -1,11 +1,9 @@
-version: "3.1"
+version: "3.8"
 
 services:
 
   database:
-    image: postgres:10.1
-    volumes:
-      - pg_data:/var/lib/postgresql/data
+    image: postgres:12.6-alpine
     environment:
       POSTGRES_USER: ttrss
       POSTGRES_PASSWORD: ttrss
@@ -14,16 +12,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.amd64
-    environment:
-      TTRSS_CONF_SELF_URL_PATH: "http://127.0.0.1:8000/"
-    volumes:
-      - ttrss_cache:/srv/ttrss/cache
-      - ttrss_feed_icons:/srv/ttrss/feed-icons
     ports:
       - 8000:80
-
-volumes:
-
-  pg_data:
-  ttrss_cache:
-  ttrss_feed_icons:
