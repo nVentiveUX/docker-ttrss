@@ -1,0 +1,53 @@
+name: "Release ARM32V6"
+
+on:
+  push:
+    branches:
+      - "master"
+      - "develop"
+
+jobs:
+  docker_image:
+    name: "Docker image"
+    runs-on: "ubuntu-20.04"
+    env:
+      ARCH: "arm32v6"
+      IMAGE_NAME: "nventiveux/ttrss-arm32v6"
+      DOCKER_BUILDKIT: "1"
+
+    steps:
+      - uses: "actions/checkout@v2"
+
+      # FIXME: set it up next time, more for PRs
+      # - name: "Hadolint"
+      #   uses: "brpaz/hadolint-action@v1.2.1"
+      #   with:
+      #     dockerfile: "Dockerfile.${ARCH}"
+
+      - name: "Build image"
+        run: |
+          branch_name="${GITHUB_REF#refs/heads/}"
+          calver="$(date +%Y.%m.%d)"
+
+          docker run \
+            --rm \
+            --privileged \
+            multiarch/qemu-user-static:register --reset
+
+          curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/qemu-arm-static.tar.gz
+          tar zxvf qemu-arm-static.tar.gz
+
+          docker build \
+            -t ${IMAGE_NAME}:latest \
+            -t ${IMAGE_NAME}:${branch_name} \
+            -t ${IMAGE_NAME}:${branch_name}-${calver} \
+            -f Dockerfile.${ARCH} .
+
+          docker images
+
+      - name: "Push image"
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" \
+            | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker push --all-tags ${IMAGE_NAME}
+          docker logout

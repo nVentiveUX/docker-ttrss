@@ -1,6 +1,6 @@
 # Tiny Tiny RSS docker image
 
-[![Release](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release.yaml/badge.svg)](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release.yaml)
+[![Release AMD64](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release-amd64.yaml/badge.svg)](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release-amd64.yaml) [![Release ARM32V6](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release-arm32v6.yaml/badge.svg)](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release-arm32v6.yaml)
 
 Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container supporting x86_64 / RaspberryPi (ARM32v6) architectures.
 
