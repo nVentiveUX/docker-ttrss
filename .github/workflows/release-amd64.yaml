@@ -1,4 +1,4 @@
-name: "Release"
+name: "Release AMD64"
 
 on:
   push:
@@ -10,11 +10,9 @@ jobs:
   docker_image:
     name: "Docker image"
     runs-on: "ubuntu-20.04"
-    strategy:
-      matrix:
-        arch: ['amd64', 'arm32v6']
-        image: ['nventiveux/ttrss', 'nventiveux/ttrss-arm32v6']
     env:
+      ARCH: "amd64"
+      IMAGE_NAME: "nventiveux/ttrss"
       DOCKER_BUILDKIT: "1"
 
     steps:
@@ -24,26 +22,18 @@ jobs:
       # - name: "Hadolint"
       #   uses: "brpaz/hadolint-action@v1.2.1"
       #   with:
-      #     dockerfile: "Dockerfile.${{ matrix.arch }}"
+      #     dockerfile: "Dockerfile.${ARCH}"
 
       - name: "Build image"
         run: |
           branch_name="${GITHUB_REF#refs/heads/}"
           calver="$(date +%Y.%m.%d)"
 
-          docker run \
-            --rm \
-            --privileged \
-            multiarch/qemu-user-static:register --reset
-
-          curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/qemu-arm-static.tar.gz
-          tar zxvf qemu-arm-static.tar.gz
-
           docker build \
-            -t ${{ matrix.image }}:latest \
-            -t ${{ matrix.image }}:${branch_name} \
-            -t ${{ matrix.image }}:${branch_name}-${calver} \
-            -f Dockerfile.${{ matrix.arch }} .
+            -t ${IMAGE_NAME}:latest \
+            -t ${IMAGE_NAME}:${branch_name} \
+            -t ${IMAGE_NAME}:${branch_name}-${calver} \
+            -f Dockerfile.${ARCH} .
 
           docker images
 
@@ -51,5 +41,5 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" \
             | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker push --all-tags ${{ matrix.image }}
+          docker push --all-tags ${IMAGE_NAME}
           docker logout
