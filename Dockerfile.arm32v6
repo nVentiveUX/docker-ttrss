@@ -34,11 +34,11 @@ RUN mkdir -p /srv/ttrss /etc/nginx/ssl
 RUN set -x \
       && apk --update --no-cache add \
         ca-certificates \
-        supervisor      \
+        curl            \
         gettext         \
         git             \
-        curl            \
         msmtp           \
+        netcat-openbsd  \
         nginx           \
         openssl         \
         php8            \
@@ -50,13 +50,16 @@ RUN set -x \
         php8-iconv      \
         php8-intl       \
         php8-mbstring   \
+        php8-mysqlnd    \
         php8-opcache    \
         php8-openssl    \
         php8-pcntl      \
+        php8-pdo_mysql  \
         php8-pdo_pgsql  \
         php8-pgsql      \
         php8-posix      \
         php8-session    \
+        supervisor      \
       && ln -sv /usr/bin/php8 /usr/bin/php \
       && curl -SL \
           https://git.tt-rss.org/git/tt-rss/archive/${TTRSS_COMMIT}.tar.gz \

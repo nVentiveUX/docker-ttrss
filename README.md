@@ -20,7 +20,11 @@ Create a network:
 docker network create ttrss_net
 ```
 
-Create a **postgres** database:
+### Prepare the database
+
+You have 2 choices: **postgresql** or **mysql** database.
+
+To create a **postgresql** database:
 
 ```shell
 # x86_64
@@ -44,7 +48,37 @@ docker run \
   arm32v6/postgres:12.6-alpine
 ```
 
-Run **ttrss** instance:
+Create a **mysql** database:
+
+```shell
+# x86_64
+docker run \
+  -d \
+  --name ttrss_database \
+  -v ttrss_db_vol:/var/lib/mysql \
+  -e MYSQL_DATABASE=ttrss \
+  -e MYSQL_USER=ttrss \
+  -e MYSQL_PASSWORD=ttrss \
+  -e MYSQL_ROOT_PASSWORD=ttrssroot \
+  --network ttrss_net \
+  mysql:8.0.23
+
+# ARM (eg. Raspberry Pi)
+docker run \
+  -d \
+  --name ttrss_database \
+  -v ttrss_db_vol:/config \
+  -e MYSQL_DATABASE=ttrss \
+  -e MYSQL_USER=ttrss \
+  -e MYSQL_PASSWORD=ttrss \
+  -e MYSQL_ROOT_PASSWORD=ttrssroot \
+  --network ttrss_net \
+  linuxserver/mariadb:arm32v7-version-110.4.18mariabionic
+```
+
+### Run TTRSS instance
+
+Run **ttrss** instance (adapt `TTRSS_DB_TYPE` to `mysql` if database is MySQL / MariaDB):
 
 ```shell
 # x86_64
@@ -52,6 +86,7 @@ docker run \
   -d \
   --name ttrss \
   -e TTRSS_DB_HOST="ttrss_database" \
+  -e TTRSS_DB_TYPE="pgsql" \
   -p 8000:80 \
   --network ttrss_net \
   nventiveux/ttrss:latest
@@ -61,6 +96,7 @@ docker run \
   -d \
   --name ttrss \
   -e TTRSS_DB_HOST="ttrss_database" \
+  -e TTRSS_DB_TYPE="pgsql" \
   -p 8000:80 \
   --network ttrss_net \
   nventiveux/ttrss-arm32v6:latest
@@ -94,14 +130,18 @@ make
 Bring it up using:
 
 ```shell
-docker-compose up --build
+# PostgresSQL
+cd tests/ttrss-pgsql && docker-compose up --build
+
+# MySQL
+cd tests/ttrss-mysql && docker-compose up --build
 ```
 
 Open browser to [http://localhost:8000/](http://localhost:8000/). Login as **admin** with password **password**.
 
 ## Maintenance
 
-### Restoring a database dump
+### Restoring a PostgreSQL database
 
 ```shell
 docker exec \
