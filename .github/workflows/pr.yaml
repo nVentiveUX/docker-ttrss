@@ -1,0 +1,39 @@
+name: "PR"
+
+on:
+  pull_request:
+    branches:
+      - "master"
+      - "develop"
+
+jobs:
+  lint:
+    name: "Linting"
+    runs-on: "ubuntu-20.04"
+    strategy:
+      matrix:
+        arch: ["amd64", "arm32v6"]
+
+    steps:
+      - uses: "actions/checkout@v2"
+
+      - name: "Lint Dockerfile: ${{ matrix.arch }}"
+        uses: "brpaz/hadolint-action@v1.2.1"
+        with:
+          dockerfile: "Dockerfile.${{ matrix.arch }}"
+
+  build:
+    name: "Build"
+    runs-on: "ubuntu-20.04"
+    strategy:
+      matrix:
+        arch: ["amd64", "arm32v6"]
+    env:
+      DOCKER_BUILDKIT: "1"
+
+    steps:
+      - uses: "actions/checkout@v2"
+
+      - name: "Build image: ${{ matrix.arch }}"
+        run: |
+          docker build -f Dockerfile.${{ matrix.arch }} .
