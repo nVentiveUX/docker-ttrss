@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:8.0.23
+    environment:
+      MYSQL_DATABASE: ttrss
+      MYSQL_USER: ttrss
+      MYSQL_PASSWORD: ttrss
+      MYSQL_ROOT_PASSWORD: ttrssroot
+
+  ttrss:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.amd64
+    environment:
+      TTRSS_DB_PORT: 3306
+      TTRSS_DB_TYPE: "mysql"
+    ports:
+      - 8000:80
+    depends_on:
+      - "database"

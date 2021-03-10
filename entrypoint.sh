@@ -3,6 +3,14 @@ set -e
 
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 
+# Wait for database to start
+until nc -zw 5 "${TTRSS_DB_HOST}" "${TTRSS_DB_PORT}"
+do
+    echo "Unable to connect on database host ${TTRSS_DB_HOST}:${TTRSS_DB_PORT} in 5 seconds. Retrying..."
+    sleep 1
+done
+
+# Run migrations
 su nginx -s /bin/sh -c "php /srv/ttrss/update.php --update-schema=force-yes" || exit 1
 
 # Configure mail sending
