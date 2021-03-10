@@ -36,4 +36,12 @@ jobs:
 
       - name: "Build image: ${{ matrix.arch }}"
         run: |
+          docker run \
+            --rm \
+            --privileged \
+            multiarch/qemu-user-static:register --reset
+
+          curl -SLO https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/qemu-arm-static.tar.gz
+          tar zxvf qemu-arm-static.tar.gz
+
           docker build -f Dockerfile.${{ matrix.arch }} .

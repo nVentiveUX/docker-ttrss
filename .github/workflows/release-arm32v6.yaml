@@ -18,12 +18,6 @@ jobs:
     steps:
       - uses: "actions/checkout@v2"
 
-      # FIXME: set it up next time, more for PRs
-      # - name: "Hadolint"
-      #   uses: "brpaz/hadolint-action@v1.2.1"
-      #   with:
-      #     dockerfile: "Dockerfile.${ARCH}"
-
       - name: "Build image"
         run: |
           branch_name="${GITHUB_REF#refs/heads/}"
