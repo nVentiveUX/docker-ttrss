@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   database:
     image: postgres:12.6-alpine
     environment:
@@ -10,7 +9,9 @@ services:
 
   ttrss:
     build:
-      context: .
+      context: ../..
       dockerfile: Dockerfile.amd64
     ports:
       - 8000:80
+    depends_on:
+      - "database"
