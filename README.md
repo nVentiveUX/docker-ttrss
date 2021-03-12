@@ -144,7 +144,19 @@ Open browser to [http://localhost:8000/](http://localhost:8000/). Login as **adm
 ### Restoring a PostgreSQL database
 
 ```shell
-docker exec \
-  -i <database_container_id> \
-  pg_restore --no-acl --no-owner -U ttrss -d ttrss < <pgdump_filename>
+# Using docker
+docker exec -i <database_container_id> \
+  pg_restore \
+    --no-acl \
+    --no-owner \
+    -U ttrss \
+    -d ttrss < <pgdump_filename>
+
+# Using docker-compose
+docker-compose exec -T database \
+  pg_restore \
+    --no-acl \
+    --no-owner \
+    -U ttrss \
+    -d ttrss < /home/vbesancon/tmp/db_ttrss_1615503601.pgdump
 ```
