@@ -24,7 +24,6 @@ jobs:
           calver="$(date +%Y.%m.%d)"
 
           docker build \
-            -t ${IMAGE_NAME}:latest \
             -t ${IMAGE_NAME}:${branch_name} \
             -t ${IMAGE_NAME}:${branch_name}-${calver} \
             -f Dockerfile.${ARCH} .

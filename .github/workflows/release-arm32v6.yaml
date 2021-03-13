@@ -32,7 +32,6 @@ jobs:
           tar zxvf qemu-arm-static.tar.gz
 
           docker build \
-            -t ${IMAGE_NAME}:latest \
             -t ${IMAGE_NAME}:${branch_name} \
             -t ${IMAGE_NAME}:${branch_name}-${calver} \
             -f Dockerfile.${ARCH} .
