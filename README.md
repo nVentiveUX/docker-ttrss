@@ -6,11 +6,13 @@ Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container support
 
 ## Available images and tags
 
-* **nventiveux/ttrss**
-  * *latest* ([Dockerfile.amd64](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.amd64))
+* **[nventiveux/ttrss](https://hub.docker.com/r/nventiveux/ttrss)** (x86_64)
+  * *master* ([Dockerfile.amd64](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.amd64))
+  * *develop* ([Dockerfile.amd64](https://github.com/nVentiveUX/docker-ttrss/blob/develop/Dockerfile.amd64))
 
-* **nventiveux/ttrss-arm32v6** (Raspberry Pi 2 / 3)
-  * *latest* ([Dockerfile.arm32v6](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.arm32v6))
+* **[nventiveux/ttrss-arm32v6](https://hub.docker.com/r/nventiveux/ttrss-arm32v6)** (Raspberry Pi 2 / 3)
+  * *master* ([Dockerfile.arm32v6](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.arm32v6))
+  * *develop* ([Dockerfile.arm32v6](https://github.com/nVentiveUX/docker-ttrss/blob/develop/Dockerfile.arm32v6))
 
 ## Usage
 
