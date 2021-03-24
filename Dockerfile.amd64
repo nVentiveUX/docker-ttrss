@@ -57,6 +57,7 @@ RUN apk --update --no-cache add \
       php8-pgsql=~8.0 \
       php8-posix=~8.0 \
       php8-session=~8.0 \
+      php8-tokenizer=~8.0 \
       supervisor=~4.2 \
     && ln -sv /usr/bin/php8 /usr/bin/php \
     && curl -SL \
