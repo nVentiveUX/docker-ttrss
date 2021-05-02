@@ -38,6 +38,7 @@ RUN apk --update --no-cache add \
       curl=~7.76 \
       gettext=~0.20 \
       git=~2.30 \
+      libxslt=~1.1 \
       msmtp=~1.8 \
       netcat-openbsd=~1.130 \
       nginx=~1.18 \
@@ -61,6 +62,7 @@ RUN apk --update --no-cache add \
       php8-posix=~8.0 \
       php8-session=~8.0 \
       php8-tokenizer=~8.0 \
+      php8-xsl=~8.0 \
       supervisor=~4.2 \
     && ln -sv /usr/bin/php8 /usr/bin/php \
     && curl -SL \
