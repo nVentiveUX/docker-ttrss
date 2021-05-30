@@ -31,36 +31,36 @@ RUN mkdir -p /srv/ttrss /etc/nginx/ssl
 
 # Install packages
 RUN apk --update --no-cache add \
-      ca-certificates=~20191127 \
-      curl=~7.76 \
-      gettext=~0.20 \
-      git=~2.30 \
-      libxslt=~1.1 \
-      msmtp=~1.8 \
-      netcat-openbsd=~1.130 \
-      nginx=~1.18 \
-      openssl=~1.1 \
-      php8=~8.0 \
-      php8-curl=~8.0 \
-      php8-dom=~8.0 \
-      php8-fileinfo=~8.0 \
-      php8-fpm=~8.0 \
-      php8-gd=~8.0 \
-      php8-iconv=~8.0 \
-      php8-intl=~8.0 \
-      php8-mbstring=~8.0 \
-      php8-mysqlnd=~8.0 \
-      php8-opcache=~8.0 \
-      php8-openssl=~8.0 \
-      php8-pcntl=~8.0 \
-      php8-pdo_mysql=~8.0 \
-      php8-pdo_pgsql=~8.0 \
-      php8-pgsql=~8.0 \
-      php8-posix=~8.0 \
-      php8-session=~8.0 \
-      php8-tokenizer=~8.0 \
-      php8-xsl=~8.0 \
-      supervisor=~4.2 \
+      ca-certificates~=20191127 \
+      curl~=7 \
+      gettext~=0.20 \
+      git~=2.30 \
+      libxslt~=1.1 \
+      msmtp~=1.8 \
+      netcat-openbsd~=1.130 \
+      nginx~=1.18 \
+      openssl~=1.1 \
+      php8~=8.0 \
+      php8-curl~=8.0 \
+      php8-dom~=8.0 \
+      php8-fileinfo~=8.0 \
+      php8-fpm~=8.0 \
+      php8-gd~=8.0 \
+      php8-iconv~=8.0 \
+      php8-intl~=8.0 \
+      php8-mbstring~=8.0 \
+      php8-mysqlnd~=8.0 \
+      php8-opcache~=8.0 \
+      php8-openssl~=8.0 \
+      php8-pcntl~=8.0 \
+      php8-pdo_mysql~=8.0 \
+      php8-pdo_pgsql~=8.0 \
+      php8-pgsql~=8.0 \
+      php8-posix~=8.0 \
+      php8-session~=8.0 \
+      php8-tokenizer~=8.0 \
+      php8-xsl~=8.0 \
+      supervisor~=4.2 \
     && ln -sv /usr/bin/php8 /usr/bin/php \
     && curl -SL \
         https://git.tt-rss.org/git/tt-rss/archive/${TTRSS_COMMIT}.tar.gz \
