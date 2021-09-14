@@ -25,7 +25,12 @@ jobs:
           branch_name="${GITHUB_REF#refs/heads/}"
           calver="$(date +%Y.%m.%d)"
 
+          [[ "${branch_name}" == "master" ]] \
+            && latest_tag_arg="-t ${IMAGE_NAME}:latest" \
+            || latest_tag_arg=""
+
           docker build \
+            ${latest_tag_arg} \
             -t ${IMAGE_NAME}:${branch_name} \
             -t ${IMAGE_NAME}:${branch_name}-${calver} \
             -f Dockerfile.${ARCH} .
