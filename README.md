@@ -7,12 +7,14 @@ Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container support
 ## Available images and tags
 
 * **[nventiveux/ttrss](https://hub.docker.com/r/nventiveux/ttrss)** (x86_64)
-  * *master* ([Dockerfile.amd64](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.amd64))
-  * *develop* ([Dockerfile.amd64](https://github.com/nVentiveUX/docker-ttrss/blob/develop/Dockerfile.amd64))
+  * *master*, *latest* ([Dockerfile.amd64](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.amd64))
+  * [See all tags](https://hub.docker.com/r/nventiveux/ttrss/tags?page=1&ordering=last_updated)
 
 * **[nventiveux/ttrss-arm32v6](https://hub.docker.com/r/nventiveux/ttrss-arm32v6)** (Raspberry Pi 2 / 3)
-  * *master* ([Dockerfile.arm32v6](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.arm32v6))
-  * *develop* ([Dockerfile.arm32v6](https://github.com/nVentiveUX/docker-ttrss/blob/develop/Dockerfile.arm32v6))
+  * *master*, *latest* ([Dockerfile.arm32v6](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile.arm32v6))
+  * [See all tags](https://hub.docker.com/r/nventiveux/ttrss-arm32v6/tags?page=1&ordering=last_updated)
+
+**Hint**: tags following [calver versionning](https://calver.org/) are also available if you want to stick to a particular version. Tags starting with `master-YYYY.MM.DD` are the stable versions while `develop-YYYY.MM.DD` are the unstable ones.
 
 ## Usage
 
