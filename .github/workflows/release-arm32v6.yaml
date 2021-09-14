@@ -26,7 +26,7 @@ jobs:
           calver="$(date +%Y.%m.%d)"
 
           [[ "${branch_name}" == "master" ]] \
-            && latest_tag_arg="-t ${IMAGE_NAME}:latest-arm32v6" \
+            && latest_tag_arg="-t ${IMAGE_NAME}:latest" \
             || latest_tag_arg=""
 
           docker run \
