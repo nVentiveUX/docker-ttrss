@@ -1,11 +1,7 @@
 SHELL = /bin/bash
-ARCH = amd64 arm32v6
 
 # Tasks
 #
-.PHONY: dockerfiles
-dockerfiles: install $(ARCH)
-
 .PHONY: install
 install:
 	@pipenv install --dev
@@ -17,8 +13,3 @@ tests-mysql:
 .PHONY: tests-pgsql
 tests-pgsql:
 	$(MAKE) -C tests/ttrss-pgsql up
-
-# Files
-#
-$(ARCH):
-	ARCH=$@ pipenv run j2 Dockerfile.j2 > Dockerfile.$@

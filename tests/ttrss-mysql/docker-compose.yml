@@ -12,7 +12,7 @@ services:
   ttrss:
     build:
       context: ../..
-      dockerfile: Dockerfile.amd64
+      dockerfile: Dockerfile
     environment:
       TTRSS_DB_PORT: 3306
       TTRSS_DB_TYPE: "mysql"
