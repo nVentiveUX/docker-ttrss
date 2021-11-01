@@ -1,0 +1,67 @@
+name: "Release"
+
+on:
+  push:
+    branches:
+      - "master"
+      - "develop"
+  schedule:
+    - cron: '0 10 * * 6'
+
+jobs:
+  docker_image:
+    name: "Docker image"
+    runs-on: "ubuntu-20.04"
+    env:
+      IMAGE_NAME: "nventiveux/ttrss"
+
+    steps:
+      - uses: "actions/checkout@v2"
+
+      - name: "Set up QEMU"
+        uses: "docker/setup-qemu-action@v1"
+        with:
+          platforms: "amd64,arm64,arm"
+
+      - name: "Set up Docker Buildx"
+        id: "buildx"
+        uses: "docker/setup-buildx-action@v1"
+        with:
+          install: true
+
+      - name: "Prepare"
+        id: "prep"
+        run: |
+          branch_name="${GITHUB_REF#refs/heads/}"
+          calver="$(date +%Y.%m.%d)"
+          image_tags="${IMAGE_NAME}:${branch_name},${IMAGE_NAME}:${branch_name}-${calver}"
+
+          if [[ "${branch_name}" == "master" ]]; then
+            image_tags="${image_tags},${IMAGE_NAME}:latest"
+          fi
+
+          # Set outputs
+          echo ::set-output name=image_tags::${image_tags}
+
+      - name: "Login to DockerHub"
+        uses: "docker/login-action@v1"
+        with:
+          username: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
+
+      - name: "Build images"
+        uses: "docker/build-push-action@v2"
+        with:
+          builder: "${{ steps.buildx.outputs.name }}"
+          context: "."
+          file: "./Dockerfile"
+          platforms: "linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"
+          push: true
+          tags: "${{ steps.prep.outputs.image_tags }}"
+
+      - name: "Update Docker Hub's README"
+        uses: "peter-evans/dockerhub-description@v2"
+        with:
+          username: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
+          repository: "${{ env.IMAGE_NAME }}"
