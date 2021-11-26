@@ -9,6 +9,7 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 # Database connection
 ENV \
+    TTRSS_COMMIT=${TTRSS_COMMIT} \
     TTRSS_DB_HOST="database" \
     TTRSS_DB_NAME="ttrss" \
     TTRSS_DB_PASS="ttrss" \
