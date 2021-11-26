@@ -1,0 +1,42 @@
+name: "Auto-update"
+
+on:
+  schedule:
+    - cron: '0 8 * * 6'
+
+jobs:
+  auto_update:
+    name: "Auto-update"
+    runs-on: "ubuntu-20.04"
+
+    steps:
+      - name: "Checkout project sources"
+        uses: "actions/checkout@v2"
+        with:
+          path: "src"
+
+      - name: "Checkout TT-RSS sources"
+        uses: "actions/checkout@v2"
+        with:
+          repository: "https://git.tt-rss.org/fox/tt-rss.git"
+          path: "ttrss"
+
+      - name: "Fetch latest TT-RSS commit"
+        id: "ttrss_fetch"
+        run: |
+          set -e
+          commit_sha="$(cd ttrss && git rev-parse --short=7 HEAD)"
+          echo "::set-output name=commit_sha::${commit_sha}"
+          echo "Set pipeline variable: commit_sha=${commit_sha}"
+
+      - name: "Update version"
+        uses: "jacobtomlinson/gha-find-replace@v2"
+        with:
+          repository: "src"
+          include: "Dockerfile"
+          find: "^ARG TTRSS_COMMIT=\".*\"$"
+          replace: "ARG TTRSS_COMMIT=\"${{ steps.ttrss_fetch.outputs.commit_sha }}\""
+
+      - uses: "stefanzweifel/git-auto-commit-action@v4"
+        with:
+          commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.ttrss_fetch.outputs.commit_sha }}"
