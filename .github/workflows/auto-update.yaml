@@ -1,7 +1,6 @@
 name: "Auto-update"
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: '0 8 * * 6'
 
@@ -14,12 +13,13 @@ jobs:
       - name: "Checkout project sources"
         uses: "actions/checkout@v2"
         with:
+          ref: "${{ github.head_ref }}"
           path: "src"
 
       - name: "Checkout TT-RSS sources"
         run: |
           set -e
-          git clone https://git.tt-rss.org/fox/tt-rss.git ttrss
+          git clone --depth=1 https://git.tt-rss.org/fox/tt-rss.git ttrss
 
       - name: "Fetch latest TT-RSS commit"
         id: "ttrss_fetch"
@@ -30,13 +30,14 @@ jobs:
           echo "Set pipeline variable: commit_sha=${commit_sha}"
 
       - name: "Update version"
-        uses: "jacobtomlinson/gha-find-replace@v2"
-        with:
-          include: "src/Dockerfile"
-          find: "^ARG TTRSS_COMMIT=\".*\"$"
-          replace: "ARG TTRSS_COMMIT=\"${{ steps.ttrss_fetch.outputs.commit_sha }}\""
+        run: |
+          set -e
+          sed -i -r \
+            -e "s#^ARG TTRSS_COMMIT=\".*\"#ARG TTRSS_COMMIT=\"${{ steps.ttrss_fetch.outputs.commit_sha }}\"#g" \
+            src/Dockerfile
 
-      - uses: "stefanzweifel/git-auto-commit-action@v4"
+      - name: "Commits"
+        uses: "stefanzweifel/git-auto-commit-action@v4"
         with:
           repository: "src"
           commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.ttrss_fetch.outputs.commit_sha }}"
