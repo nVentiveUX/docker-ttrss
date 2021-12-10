@@ -32,11 +32,11 @@ jobs:
       - name: "Update version"
         uses: "jacobtomlinson/gha-find-replace@v2"
         with:
-          repository: "src"
-          include: "Dockerfile"
+          include: "src/Dockerfile"
           find: "^ARG TTRSS_COMMIT=\".*\"$"
           replace: "ARG TTRSS_COMMIT=\"${{ steps.ttrss_fetch.outputs.commit_sha }}\""
 
       - uses: "stefanzweifel/git-auto-commit-action@v4"
         with:
+          repository: "src"
           commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.ttrss_fetch.outputs.commit_sha }}"
