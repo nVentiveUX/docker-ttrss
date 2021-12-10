@@ -1,6 +1,7 @@
 name: "Auto-update"
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 8 * * 6'
 
@@ -16,10 +17,9 @@ jobs:
           path: "src"
 
       - name: "Checkout TT-RSS sources"
-        uses: "actions/checkout@v2"
-        with:
-          repository: "https://git.tt-rss.org/fox/tt-rss.git"
-          path: "ttrss"
+        run: |
+          set -e
+          git clone https://git.tt-rss.org/fox/tt-rss.git ttrss
 
       - name: "Fetch latest TT-RSS commit"
         id: "ttrss_fetch"
