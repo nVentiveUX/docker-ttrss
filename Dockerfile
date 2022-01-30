@@ -32,7 +32,7 @@ RUN mkdir -p /srv/ttrss /etc/nginx/ssl
 
 # Install packages
 RUN apk --update --no-cache add \
-      ca-certificates~=20191127 \
+      ca-certificates~=20211220 \
       curl~=7 \
       gettext~=0.20 \
       git~=2.30 \
