@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.14
 
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 
@@ -34,12 +34,12 @@ RUN mkdir -p /srv/ttrss /etc/nginx/ssl
 RUN apk --update --no-cache add \
       ca-certificates~=20211220 \
       curl~=7 \
-      gettext~=0.20 \
-      git~=2.30 \
+      gettext~=0.21 \
+      git~=2.32 \
       libxslt~=1.1 \
       msmtp~=1.8 \
       netcat-openbsd~=1.130 \
-      nginx~=1.18 \
+      nginx~=1.20 \
       openssl~=1.1 \
       php8~=8.0 \
       php8-curl~=8.0 \
@@ -63,9 +63,8 @@ RUN apk --update --no-cache add \
       php8-xsl~=8.0 \
       supervisor~=4.2 \
     && ln -sv /usr/bin/php8 /usr/bin/php \
-    && curl -SL \
-        https://git.tt-rss.org/git/tt-rss/archive/${TTRSS_COMMIT}.tar.gz \
-        | tar xzC /srv/ttrss --strip-components 1 \
+    && git clone --branch master --depth 1 https://git.tt-rss.org/fox/tt-rss.git/ /srv/ttrss \
+    && rm -rf /srv/ttrss/.git \
     && curl -SL \
         https://github.com/levito/tt-rss-feedly-theme/archive/master.tar.gz \
         | tar xzC /tmp \
@@ -83,8 +82,8 @@ RUN chown nginx:nginx -R /srv/ttrss
 
 # Nginx configuration
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/conf.d/ttrss.conf /etc/nginx/conf.d/ttrss.conf
-RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/conf.d/ttrss.conf /etc/nginx/http.d/ttrss.conf
+RUN rm /etc/nginx/http.d/default.conf
 
 # PHP / PHP-FPM configuration
 COPY php8/php-fpm.d/*.conf /etc/php8/php-fpm.d/
