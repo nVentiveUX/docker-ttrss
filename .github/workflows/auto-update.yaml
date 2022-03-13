@@ -19,25 +19,39 @@ jobs:
       - name: "Checkout TT-RSS sources"
         run: |
           set -e
-          git clone --depth=1 https://git.tt-rss.org/fox/tt-rss.git ttrss
+          git clone --branch=master https://git.tt-rss.org/fox/tt-rss.git ttrss
 
-      - name: "Fetch latest TT-RSS commit"
-        id: "ttrss_fetch"
+      - name: "Get version details"
+        id: "versions"
         run: |
           set -e
-          commit_sha="$(cd ttrss && git rev-parse --short=7 HEAD)"
-          echo "::set-output name=commit_sha::${commit_sha}"
-          echo "Set pipeline variable: commit_sha=${commit_sha}"
+          ttrss_commit_now="$(awk 'match($0,/^ARG TTRSS_COMMIT="(.*)"/,m) {print m[1]}' Dockerfile)"
+          ttrss_commit_last="$(cd ttrss && git rev-parse --short=7 HEAD)"
+          echo "::set-output name=ttrss_commit_now::${ttrss_commit_now}"
+          echo "::set-output name=ttrss_commit_last::${ttrss_commit_last}"
+          echo "Set pipeline variable: ttrss_commit_now=${ttrss_commit_now}"
+          echo "Set pipeline variable: ttrss_commit_last=${ttrss_commit_last}"
 
-      - name: "Update version"
+      - name: "Changes for TT-RSS"
+        id: "changes"
+        run: |
+          set -e
+          ttrss_changes="$(cd ttrss && git log --no-patch --oneline --format='* %s' ${{ steps.versions.outputs.ttrss_commit_now }}..${{ steps.versions.outputs.ttrss_commit_last }})"
+          echo "${ttrss_changes}"
+          echo "::set-output name=ttrss_changes::${ttrss_changes}"
+
+      - name: "Update version and tag"
+        if: ${{ success() && steps.versions.outputs.ttrss_changes != '' }}
         run: |
           set -e
           sed -i -r \
-            -e "s#^ARG TTRSS_COMMIT=\".*\"#ARG TTRSS_COMMIT=\"${{ steps.ttrss_fetch.outputs.commit_sha }}\"#g" \
+            -e "s#^ARG TTRSS_COMMIT=\".*\"#ARG TTRSS_COMMIT=\"${{ steps.versions.outputs.ttrss_commit_last }}\"#g" \
             src/Dockerfile
+          git tag -a -m "${{ steps.versions.outputs.ttrss_changes }}" "$(date +"v%Y.%m.%d")"
 
       - name: "Commits"
         uses: "stefanzweifel/git-auto-commit-action@v4"
         with:
           repository: "src"
-          commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.ttrss_fetch.outputs.commit_sha }}"
+          commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.versions.outputs.ttrss_commit_last }}"
+          push_options: '--tags'
