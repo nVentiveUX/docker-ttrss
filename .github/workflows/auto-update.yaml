@@ -38,7 +38,7 @@ jobs:
         run: |
           set -e
           ttrss_changes="$(cd ttrss && git log --no-patch --oneline --format='* %s' ${{ steps.versions.outputs.ttrss_commit_now }}..${{ steps.versions.outputs.ttrss_commit_last }})"
-          echo "${ttrss_changes}"
+          { [[ -n "${ttrss_changes}" ]] && echo "${ttrss_changes}"; } || echo "No change. Up to date."
           echo "::set-output name=ttrss_changes::${ttrss_changes}"
 
       - name: "Update version and tag"
