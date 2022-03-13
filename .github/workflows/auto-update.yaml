@@ -26,7 +26,7 @@ jobs:
         id: "versions"
         run: |
           set -e
-          ttrss_commit_now="$(awk 'match($0,/^ARG TTRSS_COMMIT="(.*)"/,m) {print m[1]}' Dockerfile)"
+          ttrss_commit_now="$(awk 'match($0,/^ARG TTRSS_COMMIT="(.*)"/,m) {print m[1]}' src/Dockerfile)"
           ttrss_commit_last="$(cd ttrss && git rev-parse --short=7 HEAD)"
           echo "::set-output name=ttrss_commit_now::${ttrss_commit_now}"
           echo "::set-output name=ttrss_commit_last::${ttrss_commit_last}"
