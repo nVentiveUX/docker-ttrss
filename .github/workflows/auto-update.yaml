@@ -1,6 +1,7 @@
 name: "Auto-update"
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 8 * * 6'
 
