@@ -42,13 +42,13 @@ jobs:
           echo "::set-output name=ttrss_changes::${ttrss_changes}"
 
       - name: "Update version and tag"
-        if: ${{ success() && steps.versions.outputs.ttrss_changes != '' }}
+        if: ${{ success() && steps.changes.outputs.ttrss_changes != '' }}
         run: |
           set -e
           sed -i -r \
             -e "s#^ARG TTRSS_COMMIT=\".*\"#ARG TTRSS_COMMIT=\"${{ steps.versions.outputs.ttrss_commit_last }}\"#g" \
             src/Dockerfile
-          git tag -a -m "${{ steps.versions.outputs.ttrss_changes }}" "$(date +"v%Y.%m.%d")"
+          git tag -a -m "${{ steps.changes.outputs.ttrss_changes }}" "$(date +"v%Y.%m.%d")"
 
       - name: "Commits"
         uses: "stefanzweifel/git-auto-commit-action@v4"
