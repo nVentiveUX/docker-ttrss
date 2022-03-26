@@ -57,7 +57,7 @@ jobs:
           sed -i -r \
             -e "s#^ARG TTRSS_COMMIT=\".*\"#ARG TTRSS_COMMIT=\"${{ steps.versions.outputs.ttrss_commit_last }}\"#g" \
             Dockerfile
-          git tag -a -m "${{ steps.changes.outputs.ttrss_changes }}" "$(date +"v%Y.%m.%d")")
+          git tag -a -m "${{ steps.changes.outputs.ttrss_changes }}" "$(date +"v%Y.%m.%d")"
 
       - name: "Commits"
         uses: "stefanzweifel/git-auto-commit-action@v4"
