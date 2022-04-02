@@ -70,4 +70,4 @@ jobs:
         with:
           repository: "src"
           commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.versions.outputs.ttrss_commit_last }}"
-          push_options: '--tags'
+          push_options: '--follow-tags'
