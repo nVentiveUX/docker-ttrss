@@ -62,7 +62,6 @@ RUN apk --update --no-cache add \
       php8-tokenizer~=8.0 \
       php8-xsl~=8.0 \
       supervisor~=4.2 \
-    && ln -sv /usr/bin/php8 /usr/bin/php \
     && git clone --branch master --depth 1 https://git.tt-rss.org/fox/tt-rss.git/ /srv/ttrss \
     && rm -rf /srv/ttrss/.git \
     && curl -SL \
