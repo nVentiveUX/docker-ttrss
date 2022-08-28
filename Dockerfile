@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:3.16
 
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 
@@ -32,14 +32,14 @@ RUN mkdir -p /srv/ttrss /etc/nginx/ssl
 
 # Install packages
 RUN apk --update --no-cache add \
-      ca-certificates~=20211220 \
+      ca-certificates~=20220614 \
       curl~=7 \
       gettext~=0.21 \
-      git~=2.32 \
+      git~=2.36 \
       libxslt~=1.1 \
       msmtp~=1.8 \
       netcat-openbsd~=1.130 \
-      nginx~=1.20 \
+      nginx~=1.22 \
       openssl~=1.1 \
       php8~=8.0 \
       php8-curl~=8.0 \
