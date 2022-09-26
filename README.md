@@ -4,6 +4,16 @@
 
 Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container supporting amd64, arm64 and arm architectures (RaspberryPi).
 
+* [Available images and tags](#available-images-and-tags)
+* [Features](#features)
+* [Configuration](#configuration)
+* [Usage](#usage)
+  * [Prepare the database](#prepare-the-database)
+  * [Run TTRSS instance](#run-ttrss-instance)
+* [Tests and development](#tests-and-development)
+* [Maintenance](#maintenance)
+  * [Restoring a PostgreSQL database](#restoring-a-postgresql-database)
+
 ## Available images and tags
 
 The following multi-architecture image is available:
@@ -13,6 +23,17 @@ The following multi-architecture image is available:
   * [See all tags](https://hub.docker.com/r/nventiveux/ttrss/tags?page=1&ordering=last_updated)
 
 **Hint**: tags following [calver versionning](https://calver.org/) are also available if you want to stick to a particular version. Tags starting with `master-YYYY.MM.DD` are the stable versions while `develop-YYYY.MM.DD` are the unstable ones.
+
+## Features
+
+Some additionnals features are added to the base installation of TT-RSS:
+
+* [Feedly](https://github.com/levito/tt-rss-feedly-theme) theme.
+* [Mercury Fulltext](https://github.com/HenryQW/mercury_fulltext) plugin installed (you need to [configure and enable it](https://github.com/HenryQW/mercury_fulltext#installation) before).
+
+## Configuration
+
+We are now using configuration through environment variables from upstream project. Refer to [this documentation](https://tt-rss.org/wiki/GlobalConfig).
 
 ## Usage
 
@@ -70,10 +91,6 @@ docker run \
 ```
 
 Open browser to [http://localhost:8000/](http://localhost:8000/). Login as **admin** with password **password**.
-
-### Environment variables
-
-We are now using configuration through environment variables from upstream project. Refer to [this documentation](https://tt-rss.org/wiki/GlobalConfig).
 
 ## Tests and development
 

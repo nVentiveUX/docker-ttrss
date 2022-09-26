@@ -27,11 +27,9 @@ ENV \
     TTRSS_SMTP_SECURE="" \
     TTRSS_SMTP_SERVER=""
 
-# Install directories
-RUN mkdir -p /srv/ttrss /etc/nginx/ssl
-
 # Install packages
-RUN apk --update --no-cache add \
+RUN echo "➔ Installing system packages..." \
+    && apk --update --no-cache add \
       ca-certificates~=20220614 \
       curl~=7 \
       gettext~=0.21 \
@@ -62,13 +60,40 @@ RUN apk --update --no-cache add \
       php8-tokenizer~=8.0 \
       php8-xsl~=8.0 \
       supervisor~=4.2 \
+    && echo "✔️ Successfully installed system packages. Done."
+
+ARG _tmp_dir="/tmp/ttrss"
+
+RUN echo "➔ Creating important directories..." \
+    && mkdir -v "${_tmp_dir}" \
+    && mkdir -p /srv/ttrss /etc/nginx/ssl \
+    && echo "✔️ Successfully created important directories. Done." \
+    \
+    && echo "➔ Installing TT-RSS..." \
     && git clone --branch master --depth 1 https://git.tt-rss.org/fox/tt-rss.git/ /srv/ttrss \
     && rm -rf /srv/ttrss/.git \
+    && echo "✔️ Successfully installed TT-RSS. Done." \
+    \
+    && echo "➔ Installing Feedly theme..." \
+    && _local_theme_dir="/srv/ttrss/themes.local" \
     && curl -SL \
-        https://github.com/levito/tt-rss-feedly-theme/archive/master.tar.gz \
-        | tar xzC /tmp \
-          && cp -r /tmp/tt-rss-feedly-theme-master/feedly* /srv/ttrss/themes.local \
-          && rm -rf /tmp/tt-rss-feedly-theme-master
+      https://github.com/levito/tt-rss-feedly-theme/archive/master.tar.gz \
+      | tar xzC "${_tmp_dir}" \
+        && cp -r "${_tmp_dir}"/tt-rss-feedly-theme-master/feedly* "${_local_theme_dir}" \
+    && echo "✔️ Successfully installed Feedly theme. Done." \
+    \
+    && echo "➔ Installing Mercury plugin..." \
+    && _mercury_fulltext_dir="/srv/ttrss/plugins.local/mercury_fulltext" \
+    && mkdir -v "${_mercury_fulltext_dir}" \
+    && curl -SL \
+        https://github.com/HenryQW/mercury_fulltext/archive/master.tar.gz \
+        | tar xzC "${_tmp_dir}" \
+          && cp -r "${_tmp_dir}"/mercury_fulltext-master/init.* "${_mercury_fulltext_dir}" \
+    && echo "✔️ Successfully installed Mercury plugin. Done." \
+    \
+    && echo "➔ Cleaning temporary files..." \
+    && rm -rf "${_tmp_dir}" \
+    && echo "✔️ Successfully cleaned temporary files. Done."
 
 # Install TT-RSS configuration
 COPY ttrss/config.php /srv/ttrss/config.php
