@@ -75,7 +75,7 @@ RUN echo "➔ Creating important directories..." \
     && echo "✔️ Successfully installed TT-RSS. Done." \
     \
     && echo "➔ Installing Feedly theme..." \
-    && _local_theme_dir="/srv/ttrss/themes.local" \
+    && _local_theme_dir="/srv/ttrss/themes" \
     && curl -SL \
       https://github.com/levito/tt-rss-feedly-theme/archive/master.tar.gz \
       | tar xzC "${_tmp_dir}" \
@@ -83,7 +83,7 @@ RUN echo "➔ Creating important directories..." \
     && echo "✔️ Successfully installed Feedly theme. Done." \
     \
     && echo "➔ Installing Mercury plugin..." \
-    && _mercury_fulltext_dir="/srv/ttrss/plugins.local/mercury_fulltext" \
+    && _mercury_fulltext_dir="/srv/ttrss/plugins/mercury_fulltext" \
     && mkdir -v "${_mercury_fulltext_dir}" \
     && curl -SL \
         https://github.com/HenryQW/mercury_fulltext/archive/master.tar.gz \
