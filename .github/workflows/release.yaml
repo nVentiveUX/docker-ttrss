@@ -29,9 +29,10 @@ jobs:
       - name: "Prepare"
         id: "prep"
         run: |
+          tag_from_ref="${GITHUB_REF##refs/tags/}"
           case "${GITHUB_EVENT_NAME}" in
             release)
-              image_tags="${IMAGE_NAME}:latest,${IMAGE_NAME}:${GITHUB_REF}";;
+              image_tags="${IMAGE_NAME}:latest,${IMAGE_NAME}:${tag_from_ref}";;
           esac
 
           # Set outputs

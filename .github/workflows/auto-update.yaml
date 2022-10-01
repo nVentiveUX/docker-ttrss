@@ -14,6 +14,7 @@ jobs:
       - name: "Checkout project sources"
         uses: "actions/checkout@v2"
         with:
+          token: "${{ secrets.RELEASE_PAT }}"
           ref: "${{ github.head_ref }}"
           path: "src"
 
@@ -74,7 +75,6 @@ jobs:
         if: ${{ success() && steps.changes.outputs.ttrss_has_changes == 'yes' }}
         uses: "stefanzweifel/git-auto-commit-action@v4"
         with:
-          token: "${{ secrets.RELEASE_PAT }}"
           repository: "src"
           commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.versions.outputs.ttrss_commit_last }}"
           push_options: '--follow-tags'
