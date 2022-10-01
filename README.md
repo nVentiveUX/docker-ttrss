@@ -19,10 +19,10 @@ Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container support
 The following multi-architecture image is available:
 
 * **[nventiveux/ttrss](https://hub.docker.com/r/nventiveux/ttrss)**
-  * *master*, *latest* ([Dockerfile](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile))
+  * *latest* ([Dockerfile](https://github.com/nVentiveUX/docker-ttrss/blob/master/Dockerfile))
   * [See all tags](https://hub.docker.com/r/nventiveux/ttrss/tags?page=1&ordering=last_updated)
 
-**Hint**: tags following [calver versionning](https://calver.org/) are also available if you want to stick to a particular version. Tags starting with `master-YYYY.MM.DD` are the stable versions while `develop-YYYY.MM.DD` are the unstable ones.
+**Hint**: tags are following [calver versionning](https://calver.org/) with pattern `vYYYY.MM.DD`.
 
 ## Features
 
