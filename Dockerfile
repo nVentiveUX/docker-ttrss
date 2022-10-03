@@ -117,7 +117,7 @@ COPY php8/conf.d/*.ini /etc/php8/conf.d/
 EXPOSE 80
 
 # Persist data
-VOLUME /srv/ttrss/cache /srv/ttrss/feed-icons
+VOLUME ["/srv/ttrss/cache", "/srv/ttrss/feed-icons", "/srv/ttrss/plugins.local", "/srv/ttrss/themes.local"]
 
 # Setup init
 COPY supervisord.conf /supervisord.conf
