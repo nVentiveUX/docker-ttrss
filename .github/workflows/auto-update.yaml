@@ -37,8 +37,8 @@ jobs:
           set -e
           ttrss_commit_now="$(awk 'match($0,/^ARG TTRSS_COMMIT="(.*)"/,m) {print m[1]}' src/Dockerfile)"
           ttrss_commit_last="$(cd ttrss && git rev-parse --short=7 HEAD)"
-          echo "::set-output name=ttrss_commit_now::${ttrss_commit_now}"
-          echo "::set-output name=ttrss_commit_last::${ttrss_commit_last}"
+          echo "ttrss_commit_now=${ttrss_commit_now}" >> $GITHUB_OUTPUT
+          echo "ttrss_commit_last=${ttrss_commit_last}" >> $GITHUB_OUTPUT
           echo "Set pipeline variable: ttrss_commit_now=${ttrss_commit_now}"
           echo "Set pipeline variable: ttrss_commit_last=${ttrss_commit_last}"
 
@@ -49,16 +49,16 @@ jobs:
           tag_name="$(date +"v%Y.%m.%d")"
           ttrss_changes="$(cd ttrss && git log --no-patch --oneline --format='* %s' ${{ steps.versions.outputs.ttrss_commit_now }}..${{ steps.versions.outputs.ttrss_commit_last }})"
 
-          echo "::set-output name=ttrss_tag_name::${tag_name}"
+          echo "ttrss_tag_name=${tag_name}" >> $GITHUB_OUTPUT
 
           if [[ -n "${ttrss_changes}" ]]
           then
             echo -ne "## Upstream changes\n\n" | tee "/tmp/ttrss_changes.md"
             echo "${ttrss_changes}" | tee -a "/tmp/ttrss_changes.md"
-            echo "::set-output name=ttrss_has_changes::yes"
+            echo "ttrss_has_changes=yes" >> $GITHUB_OUTPUT
           else
             echo "No change. Up to date."
-            echo "::set-output name=ttrss_has_changes::no"
+            echo "ttrss_has_changes=no" >> $GITHUB_OUTPUT
           fi
 
       - name: "Update version and tag"
