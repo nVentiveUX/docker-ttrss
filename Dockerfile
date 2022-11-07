@@ -40,6 +40,7 @@ RUN echo "➔ Installing system packages..." \
       nginx~=1.22 \
       openssl~=1.1 \
       php8~=8.0 \
+      php8-ctype~=8.0 \
       php8-curl~=8.0 \
       php8-dom~=8.0 \
       php8-fileinfo~=8.0 \
