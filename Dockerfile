@@ -27,40 +27,42 @@ ENV \
     TTRSS_SMTP_SECURE="" \
     TTRSS_SMTP_SERVER=""
 
-# Install packages
+# As there is a weekly auto-update, we do not pin packages here to reduce
+# maintenance overhead.
+# hadolint ignore=DL3018
 RUN echo "➔ Installing system packages..." \
     && apk --update --no-cache add \
-      ca-certificates~=20220614 \
-      curl~=7 \
-      gettext~=0.21 \
-      git~=2.36 \
-      libxslt~=1.1 \
-      msmtp~=1.8 \
-      netcat-openbsd~=1.130 \
-      nginx~=1.22 \
-      openssl~=1.1 \
-      php8~=8.0 \
-      php8-ctype~=8.0 \
-      php8-curl~=8.0 \
-      php8-dom~=8.0 \
-      php8-fileinfo~=8.0 \
-      php8-fpm~=8.0 \
-      php8-gd~=8.0 \
-      php8-iconv~=8.0 \
-      php8-intl~=8.0 \
-      php8-mbstring~=8.0 \
-      php8-mysqlnd~=8.0 \
-      php8-opcache~=8.0 \
-      php8-openssl~=8.0 \
-      php8-pcntl~=8.0 \
-      php8-pdo_mysql~=8.0 \
-      php8-pdo_pgsql~=8.0 \
-      php8-pgsql~=8.0 \
-      php8-posix~=8.0 \
-      php8-session~=8.0 \
-      php8-tokenizer~=8.0 \
-      php8-xsl~=8.0 \
-      supervisor~=4.2 \
+      ca-certificates \
+      curl \
+      gettext \
+      git \
+      libxslt \
+      msmtp \
+      netcat-openbsd \
+      nginx \
+      openssl \
+      php8 \
+      php8-ctype \
+      php8-curl \
+      php8-dom \
+      php8-fileinfo \
+      php8-fpm \
+      php8-gd \
+      php8-iconv \
+      php8-intl \
+      php8-mbstring \
+      php8-mysqlnd \
+      php8-opcache \
+      php8-openssl \
+      php8-pcntl \
+      php8-pdo_mysql \
+      php8-pdo_pgsql \
+      php8-pgsql \
+      php8-posix \
+      php8-session \
+      php8-tokenizer \
+      php8-xsl \
+      supervisor \
     && echo "✔️ Successfully installed system packages. Done."
 
 ARG _tmp_dir="/tmp/ttrss"
