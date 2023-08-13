@@ -21,7 +21,7 @@ clean-tests:
 
 .PHONY: tests-image
 tests-image:
-	@docker build --rm --no-cache --tag $(IMAGE) .
+	@docker build --progress=plain --rm --no-cache --tag $(IMAGE) .
 
 .PHONY: tests-mysql
 tests-mysql:

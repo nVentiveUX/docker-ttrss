@@ -21,13 +21,6 @@
 	// *** Files and directories ***
 	// *****************************
 
-	putenv('PHP_EXECUTABLE=/usr/bin/php');
-	// Path to PHP *COMMAND LINE* executable, used for various command-line tt-rss
-	// programs and update daemon. Do not try to use CGI binary here, it won't work.
-	// If you see HTTP headers being displayed while running tt-rss scripts,
-	// then most probably you are using the CGI binary. If you are unsure what to
-	// put in here, ask your hosting provider.
-
 	putenv('LOCK_DIRECTORY=lock');
 	// Directory for lockfiles, must be writable to the user you run
 	// daemon process or cronjobs under.
