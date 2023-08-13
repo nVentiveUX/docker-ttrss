@@ -80,12 +80,20 @@ jobs:
           push_options: '--follow-tags'
 
       - name: "Create auto release"
-        if: ${{ success() && github.event_name != 'workflow_dispatch' && steps.changes.outputs.ttrss_has_changes == 'yes'}}
+        if: ${{ success() && steps.changes.outputs.ttrss_has_changes == 'yes' }}
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.RELEASE_PAT }}
           bodyFile: "/tmp/ttrss_changes.md"
           tag: "${{ steps.changes.outputs.ttrss_tag_name }}"
+
+      - name: "Manual tag version"
+        if: ${{ success() && github.event_name == 'workflow_dispatch' && steps.changes.outputs.ttrss_has_changes == 'no' }}
+        run: |
+          set -e
+          cd src/
+          git tag -a -m "Manual release" "${{ steps.changes.outputs.ttrss_tag_name }}"
+          git push --follow-tags
 
       - name: "Create manual release"
         if: ${{ success() && github.event_name == 'workflow_dispatch' }}
@@ -93,3 +101,4 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_PAT }}
           generateReleaseNotes: true
+          tag: "${{ steps.changes.outputs.ttrss_tag_name }}"
