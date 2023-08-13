@@ -61,7 +61,7 @@ jobs:
             echo "ttrss_has_changes=no" >> $GITHUB_OUTPUT
           fi
 
-      - name: "Update version and tag"
+      - name: "Update version"
         if: ${{ success() && steps.changes.outputs.ttrss_has_changes == 'yes' }}
         run: |
           set -e
@@ -69,7 +69,6 @@ jobs:
           sed -i -r \
             -e "s#^ARG TTRSS_COMMIT=\".*\"#ARG TTRSS_COMMIT=\"${{ steps.versions.outputs.ttrss_commit_last }}\"#g" \
             Dockerfile
-          git tag -a -F "/tmp/ttrss_changes.md" "${{ steps.changes.outputs.ttrss_tag_name }}"
 
       - name: "Commits"
         if: ${{ success() && steps.changes.outputs.ttrss_has_changes == 'yes' }}
@@ -77,12 +76,20 @@ jobs:
         with:
           repository: "src"
           commit_message: "feat(ttrss): bump ttrss version to commit ${{ steps.versions.outputs.ttrss_commit_last }}"
+          tagging_message: "${{ steps.changes.outputs.ttrss_tag_name }}"
           push_options: '--follow-tags'
 
-      - name: "Create release"
-        if: ${{ success() && steps.changes.outputs.ttrss_has_changes == 'yes' }}
+      - name: "Create auto release"
+        if: ${{ success() && github.event_name != 'workflow_dispatch' && steps.changes.outputs.ttrss_has_changes == 'yes'}}
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.RELEASE_PAT }}
           bodyFile: "/tmp/ttrss_changes.md"
           tag: "${{ steps.changes.outputs.ttrss_tag_name }}"
+
+      - name: "Create manual release"
+        if: ${{ success() && github.event_name == 'workflow_dispatch' }}
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.RELEASE_PAT }}
+          generateReleaseNotes: true
