@@ -2,7 +2,8 @@ SHELL := /bin/bash
 
 .PHONY: up
 up:
-	@docker compose up --build
+	@docker compose build --no-cache
+	@docker compose up
 
 .PHONY: down
 down:
