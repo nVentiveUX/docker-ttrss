@@ -3,7 +3,7 @@ FROM alpine:3.18
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 
 # TTRSS upstream commit reference
-ARG TTRSS_COMMIT="bcbbd53"
+ARG TTRSS_COMMIT="b3c0859"
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
