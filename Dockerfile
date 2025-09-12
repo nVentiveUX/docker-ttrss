@@ -61,6 +61,7 @@ RUN echo "➔ Installing system packages..." \
       php82-pgsql \
       php82-posix \
       php82-session \
+      php82-simplexml \
       php82-tokenizer \
       php82-xsl \
       supervisor \
