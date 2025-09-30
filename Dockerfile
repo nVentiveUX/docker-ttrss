@@ -64,6 +64,7 @@ RUN echo "➔ Installing system packages..." \
       php82-simplexml \
       php82-tokenizer \
       php82-xsl \
+      php82-xmlwriter \
       supervisor \
     && echo "✔️ Successfully installed system packages. Done."
 
