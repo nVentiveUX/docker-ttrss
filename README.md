@@ -1,5 +1,12 @@
 # Tiny Tiny RSS docker image
 
+> [!IMPORTANT]
+> TT-RSS's author announced [a shutdown of all the infrastructure](https://community.tt-rss.org/t/the-end-of-tt-rss-org/7164) related to the project.
+>
+> Since a couple of years now I have switched to [FreshRSS](https://github.com/FreshRSS/FreshRSS) which **I highly recommend**.
+>
+> **This project is now discontinued and archived**. Thanks to all the feedbacks and contributors I had over time :heart:
+
 [![Release](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release.yaml/badge.svg)](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release.yaml)
 
 Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container supporting amd64, arm64 and arm architectures (RaspberryPi).
