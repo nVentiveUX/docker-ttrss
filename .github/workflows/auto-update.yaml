@@ -29,7 +29,7 @@ jobs:
       - name: "Checkout TT-RSS sources"
         run: |
           set -e
-          git clone --branch=master https://git.tt-rss.org/fox/tt-rss.git ttrss
+          git clone --branch=main https://github.com/tt-rss/tt-rss.git ttrss
 
       - name: "Get version details"
         id: "versions"

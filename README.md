@@ -1,15 +1,19 @@
 # Tiny Tiny RSS docker image
 
 > [!IMPORTANT]
-> TT-RSS's author announced [a shutdown of all the infrastructure](https://community.tt-rss.org/t/the-end-of-tt-rss-org/7164) related to the project.
+> The author of TT-RSS has announced the shutdown of all infrastructure related to the project ([announcement](https://community.tt-rss.org/t/the-end-of-tt-rss-org/7164)). To ensure continued functionality, I’ve migrated the image build process to target the official fork at [tt-rss/tt-rss](https://github.com/tt-rss/tt-rss). This change maintains operational stability while preserving the project’s utility for the community <3.  
 >
-> Since a couple of years now I have switched to [FreshRSS](https://github.com/FreshRSS/FreshRSS) which **I highly recommend**.
+> I’ve transitioned to [FreshRSS](https://github.com/FreshRSS/FreshRSS) over the past few years. **This project is now in maintenance mode.** While I will no longer implement new features, I remain committed to:
 >
-> **This project is now discontinued and archived**. Thanks to all the feedbacks and contributors I had over time :heart:
+> - Reviewing pull requests
+> - Addressing minor bugs  
+> - Supporting the community  
+>
+> Merci beaucoup 💪
 
 [![Release](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release.yaml/badge.svg)](https://github.com/nVentiveUX/docker-ttrss/actions/workflows/release.yaml)
 
-Host [Tiny Tiny RSS](https://tt-rss.org/) instance in a docker container supporting amd64, arm64 and arm architectures (RaspberryPi).
+Host [Tiny Tiny RSS](https://github.com/tt-rss/tt-rss) instance in a docker container supporting amd64, arm64 and arm architectures (RaspberryPi).
 
 * [Available images and tags](#available-images-and-tags)
 * [Features](#features)
@@ -40,7 +44,7 @@ Some additionnals features are added to the base installation of TT-RSS:
 
 ## Configuration
 
-We are now using configuration through environment variables from upstream project. Refer to [this documentation](https://tt-rss.org/wiki/GlobalConfig).
+We are now using configuration through environment variables from upstream project. Refer to [this documentation](https://tt-rss.org/docs/Global-Config.html).
 
 ## Usage
 

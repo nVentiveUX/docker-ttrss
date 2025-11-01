@@ -76,7 +76,7 @@ RUN echo "➔ Creating important directories..." \
     && echo "✔️ Successfully created important directories. Done." \
     \
     && echo "➔ Installing TT-RSS..." \
-    && git clone --branch master --depth 1 https://git.tt-rss.org/fox/tt-rss.git/ /srv/ttrss \
+    && git clone --branch main --depth 1 https://github.com/tt-rss/tt-rss.git /srv/ttrss \
     && rm -rf /srv/ttrss/.git \
     && echo "✔️ Successfully installed TT-RSS. Done." \
     \
