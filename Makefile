@@ -3,10 +3,6 @@ IMAGE := nventiveux/ttrss:latest
 
 # Tasks
 #
-.PHONY: venv
-venv:
-	@pipenv install --dev
-
 .PHONY: clean
 clean: clean-tests
 
