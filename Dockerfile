@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.24
 
 LABEL maintainers="Vincent BESANCON <besancon.vincent@gmail.com>"
 
@@ -17,7 +17,7 @@ ENV \
     TTRSS_DB_TYPE="pgsql" \
     TTRSS_DB_USER="ttrss" \
     TTRSS_DIGEST_SUBJECT="[rss] News headlines on last 24 hours" \
-    TTRSS_PHP_EXECUTABLE="/usr/bin/php82" \
+    TTRSS_PHP_EXECUTABLE="/usr/bin/php85" \
     TTRSS_PLUGINS="auth_internal,note,import_export" \
     TTRSS_SELF_URL_PATH="http://localhost:8000/" \
     TTRSS_SMTP_FROM_ADDRESS="noreply@mydomain.com" \
@@ -42,29 +42,28 @@ RUN echo "➔ Installing system packages..." \
       netcat-openbsd \
       nginx \
       openssl \
-      php82 \
-      php82-ctype \
-      php82-curl \
-      php82-dom \
-      php82-fileinfo \
-      php82-fpm \
-      php82-gd \
-      php82-iconv \
-      php82-intl \
-      php82-mbstring \
-      php82-mysqlnd \
-      php82-opcache \
-      php82-openssl \
-      php82-pcntl \
-      php82-pdo_mysql \
-      php82-pdo_pgsql \
-      php82-pgsql \
-      php82-posix \
-      php82-session \
-      php82-simplexml \
-      php82-tokenizer \
-      php82-xsl \
-      php82-xmlwriter \
+      php85 \
+      php85-ctype \
+      php85-curl \
+      php85-dom \
+      php85-fileinfo \
+      php85-fpm \
+      php85-gd \
+      php85-iconv \
+      php85-intl \
+      php85-mbstring \
+      php85-mysqlnd \
+      php85-openssl \
+      php85-pcntl \
+      php85-pdo_mysql \
+      php85-pdo_pgsql \
+      php85-pgsql \
+      php85-posix \
+      php85-session \
+      php85-simplexml \
+      php85-tokenizer \
+      php85-xsl \
+      php85-xmlwriter \
       supervisor \
     && echo "✔️ Successfully installed system packages. Done."
 
@@ -116,8 +115,8 @@ COPY nginx/conf.d/ttrss.conf /etc/nginx/http.d/ttrss.conf
 RUN rm /etc/nginx/http.d/default.conf
 
 # PHP / PHP-FPM configuration
-COPY php82/php-fpm.d/*.conf /etc/php82/php-fpm.d/
-COPY php82/conf.d/*.ini /etc/php82/conf.d/
+COPY php85/php-fpm.d/*.conf /etc/php85/php-fpm.d/
+COPY php85/conf.d/*.ini /etc/php85/conf.d/
 
 # Listening ports
 EXPOSE 80
