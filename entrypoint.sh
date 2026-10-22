@@ -11,7 +11,7 @@ do
 done
 
 # Run migrations
-su nginx -s /bin/sh -c "/usr/bin/php82 /srv/ttrss/update.php --update-schema=force-yes" || exit 1
+su nginx -s /bin/sh -c "/usr/bin/php85 /srv/ttrss/update.php --update-schema=force-yes" || exit 1
 
 # Configure mail sending
 touch /etc/msmtprc
